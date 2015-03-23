@@ -2,7 +2,7 @@
 // @name        super-bit-sr3k-login
 // @namespace   super-bit-sr3k-login
 // @include     http://10.0.0.55/*
-// @version     2.1
+// @version     2.2
 // @grant       none
 // ==/UserScript==
 
@@ -65,13 +65,14 @@ var aya = new function () {
 
   this.onLoginFinish = (function () {
     this.setWTFline();
-    setTimeout(function () {detectOnlineStatus();}, 1000);
-    setTimeout(function () {detectOnlineStatus();}, 3200);
+    setTimeout(function () {detectOnlineStatus();}, 2000);
+    setTimeout(function () {detectOnlineStatus();}, 5100);
   }).bind(this);
 
   this.onLogoutFinish = (function () {
     this.setWTFline();
-    setTimeout(function () {detectOnlineStatus();}, 500);
+    setTimeout(function () {detectOnlineStatus();}, 2000);
+    setTimeout(function () {detectOnlineStatus();}, 5100);
   }).bind(this);
 
   /**
@@ -396,8 +397,8 @@ var aya = new function () {
   function ayaJump () {
     if (original_location) window.location = original_location;
   }
-  
-  
+
+
   /**
    * 魔法开始～～
    */
@@ -413,7 +414,7 @@ var aya = new function () {
     brandNewBody();
     detectOnlineStatus();
     autoLogin();
-    
+
     /** 如果是跳转到登录页面的，就持续检测联网状态，连上网之后就跳转回去 */
     if (original_location) { setInterval(function () {detectOnlineStatus();}, 3100); }
   });
