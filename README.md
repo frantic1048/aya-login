@@ -1,5 +1,4 @@
-![version](https://img.shields.io/badge/version-2.2_stable-FF5185.svg?style=flat
--square)
+![version](https://img.shields.io/badge/version-2.2_stable-FF5185.svg?style=flat-square)
 
 # Aya Login
 
