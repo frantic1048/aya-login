@@ -65,14 +65,14 @@ var aya = new function () {
 
   this.onLoginFinish = (function () {
     this.setWTFline();
-    setTimeout(function () {detectOnlineStatus();}, 2000);
-    setTimeout(function () {detectOnlineStatus();}, 5100);
+    setTimeout(function () {detectOnlineStatus();}, 2100);
+    setTimeout(function () {detectOnlineStatus();}, 5500);
   }).bind(this);
 
   this.onLogoutFinish = (function () {
     this.setWTFline();
-    setTimeout(function () {detectOnlineStatus();}, 2000);
-    setTimeout(function () {detectOnlineStatus();}, 5100);
+    setTimeout(function () {detectOnlineStatus();}, 2100);
+    setTimeout(function () {detectOnlineStatus();}, 5500);
   }).bind(this);
 
   /**
