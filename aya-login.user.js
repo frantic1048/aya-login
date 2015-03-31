@@ -2,7 +2,7 @@
 // @name        super-bit-sr3k-login
 // @namespace   super-bit-sr3k-login
 // @include     http://10.0.0.55/*
-// @version     2.3
+// @version     2.3.1
 // @grant       none
 // ==/UserScript==
 
@@ -195,9 +195,9 @@ var aya = new function () {
       document.form1.pass.value = id.password;
       window.do_login();
     }
-    else if ( preserveId.username && preserveId.password ) {
-      document.form1.uname.value = id.username;
-      document.form1.pass.value = id.password;
+    else if ( (preserveId.username !== '') && (preserveId.password !== '') ) {
+      document.form1.uname.value = preserveId.username;
+      document.form1.pass.value = preserveId.password;
     }
   }
 
