@@ -2,7 +2,7 @@
 // @name        super-bit-sr3k-login
 // @namespace   super-bit-sr3k-login
 // @include     http://10.0.0.55/*
-// @version     2.2
+// @version     2.3
 // @grant       none
 // ==/UserScript==
 
@@ -19,6 +19,14 @@ var aya = new function () {
   var id = {
     'username':'imbakabakabaka',/**< 用户名 */
     'password':'23333'          /**< 密码   */
+  };
+  
+  /**
+   * 页面原本自动保存下来的用户名和密码
+   */
+  var preserveId = {
+    'username':'',
+    'password':''
   };
 
   /** 主题
@@ -186,6 +194,10 @@ var aya = new function () {
       document.form1.uname.value = id.username;
       document.form1.pass.value = id.password;
       window.do_login();
+    }
+    else if ( preserveId.username && preserveId.password ) {
+      document.form1.uname.value = id.username;
+      document.form1.pass.value = id.password;
     }
   }
 
@@ -405,6 +417,12 @@ var aya = new function () {
   window.Hogan = false;  /**< 用来检测联网状态的对象 */
   var bulletinHTML = ''; /**< 通知公告内容 */
   var maska;             /**< 隐藏整个页面 */
+  
+  
+  /** 获取页面自动保存的用户名和密码 */
+  preserveId.username = document.form1.uname.value;
+  preserveId.password = document.form1.password.value;
+  
   document.head.innerHTML+='<style id="maska" type=text/css>body{visibility: hidden !important;background: none !important;}</style>';
   maska = document.getElementById('maska');
   window.addEventListener('aya-online', ayaJump);
