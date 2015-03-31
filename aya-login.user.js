@@ -2,7 +2,7 @@
 // @name        super-bit-sr3k-login
 // @namespace   super-bit-sr3k-login
 // @include     http://10.0.0.55/*
-// @version     2.3.4
+// @version     2.3.5
 // @grant       none
 // ==/UserScript==
 
@@ -199,9 +199,6 @@ var aya = new function () {
       document.form1.uname.value = preserveId.uname;
       document.form1.pass.value = preserveId.pass;
     }
-    $("preserveId in autolog");
-    $(preserveId.uname + '\n');
-    $(preserveId.pass + '\n');
   }
 
   /**
@@ -427,7 +424,6 @@ var aya = new function () {
     /** 获取页面自动保存的用户名和密码 */
     preserveId.uname = document.form1.uname.value;
     preserveId.pass = document.form1.pass.value;
-    $("first get" + preserveId.uname + ":" + preserveId.pass);
     
     document.head.innerHTML+='<style id="maska" type=text/css>body{visibility: hidden !important;background: none !important;}</style>';
     aya.setWTFline();     /**< 设置链接状态未知 */
