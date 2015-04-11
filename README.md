@@ -1,4 +1,4 @@
-![version](https://img.shields.io/badge/version-2.4_stable-FF5185.svg?style=flat-square)
+![version](https://img.shields.io/badge/version-2.3.5_stable-FF5185.svg?style=flat-square)
 
 # Aya Login
 
@@ -6,6 +6,7 @@
 
 功能：
 
+- 联网成功后自动跳回登录页面之前的网页
 - 自动登录 
 - 联网状态指示 
 - 全新的 modal window
