@@ -12,7 +12,7 @@
  * 某bit的超srun3k校园网登录
  */
 var aya = new function () {
-  console.log('mission start !');
+  console.log('あやや　始まるよ　!!');
 
   /**
    * 启用自动登录：修改 imbakabakabaka 和 23333 为自己的用户名和密码即可……
@@ -55,7 +55,7 @@ var aya = new function () {
       return false;
     }
   })();
-  $('org location' + original_location);
+  $('original_location:' + original_location);
   
   /** 联网状态
    * 有三种取值，写入值的时候同时在 window 上触发对应事件
@@ -68,9 +68,9 @@ var aya = new function () {
     configurable:true,
     enumerable:true,
     set:function (value) {
-      if      (value === true)  { this.value = value; document.body.setAttribute('class', 'online') ; window.dispatchEvent(new Event('aya-online'));  $('now online setted'); }
-      else if (value === false) { this.value = value; document.body.setAttribute('class', 'offline'); window.dispatchEvent(new Event('aya-offline')); $('now offline setted');}
-      else if (value === 'wtf') { this.value = value; document.body.setAttribute('class', 'wtfline'); window.dispatchEvent(new Event('aya-wtfline')); $('now wtfline setted');}
+      if      (value === true)  { this.value = value; document.body.setAttribute('class', 'online') ; window.dispatchEvent(new Event('aya-online'));  $('aya.isOnline : now online'); }
+      else if (value === false) { this.value = value; document.body.setAttribute('class', 'offline'); window.dispatchEvent(new Event('aya-offline')); $('aya.isOnline : now offline');}
+      else if (value === 'wtf') { this.value = value; document.body.setAttribute('class', 'wtfline'); window.dispatchEvent(new Event('aya-wtfline')); $('aya.isOnline : now wtfline');}
     },
     get:function () { return this.value; }
   });
@@ -225,17 +225,16 @@ var aya = new function () {
    * 连续执行最小间隔：3000 ms
    */
   function detectOnlineStatus() {
-    $("into detect");
+    $("detectOnlineStatus() : into");
     if ( aya.isOnline === true) { return; }
     else { aya.setWTFline(); }
     var magi = document.createElement('script');
     magi.setAttribute('type', 'application/javascript');
     magi.setAttribute('src', 'http://cdnjscn.b0.upaiyun.com/libs/hogan.js/3.0.0/hogan.min.js'+'?'+performance.now()+performance.now()+performance.now());
     window.document.body.appendChild(magi);
-    $(magi);
     var checker = setInterval(function () {
       if ((!!window.Hogan) && (aya.isOnline !== true)) { clearInterval(checker);aya.setOnline(); }
-      else { $('suck'); }
+      else { $('detectOnlineStatus() : suck'); }
     }, 100);
     setTimeout(function () {
       clearInterval(checker);
@@ -252,7 +251,7 @@ var aya = new function () {
    * 真正的注销操作
    */
   function doLogout(){
-    $('into real logout');
+    $('doLogout() : into');
     var uname=document.form1.uname.value;
     var pass=document.form1.pass.value;
     var con="";
@@ -425,7 +424,6 @@ var aya = new function () {
    * 支持 http(s) 协议的链接
    */
   function ayaJump () {
-    $(original_location);
     if (original_location) window.location = original_location;
   }
 
@@ -446,8 +444,6 @@ var aya = new function () {
     /** 获取页面自动保存的用户名和密码 */
     preserveId.uname = document.form1.uname.value;
     preserveId.pass = document.form1.pass.value;
-    
-    $(preserveId);
     
     aya.setWTFline();     /**< 设置链接状态未知 */
     overwriteFunctions();
