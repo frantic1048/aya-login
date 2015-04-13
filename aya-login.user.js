@@ -2,7 +2,7 @@
 // @name        super-bit-sr3k-login
 // @namespace   super-bit-sr3k-login
 // @include     http://10.0.0.55/*
-// @version     2.3.6
+// @version     2.3.7
 // @grant       none
 // ==/UserScript==
 
@@ -177,15 +177,22 @@ var aya = new function () {
 
   /** 用主题填充页面 */
   function fillBody () {
-    document.body.innerHTML = theme.bodyHTML;
-
-    var theme_css = document.body.appendChild(document.createElement('style'));
+    var frag = document.createDocumentFragment();
+    
+    (function (ww) {
+      ww.innerHTML = theme.bodyHTML;
+      Array.prototype.filter.call(ww.childNodes,function (el) { frag.appendChild(el); });
+    })(document.createElement("ww"));
+    
+    var theme_css = frag.appendChild(document.createElement('style'));
     theme_css.setAttribute('type','text/css');
     theme_css.textContent = theme.CSS;
 
-    var theme_css = document.body.appendChild(document.createElement('script'));
-    theme_css.setAttribute('type','application/javascript');
-    theme_css.textContent = theme.Javascript;
+    var theme_js = frag.appendChild(document.createElement('script'));
+    theme_js.setAttribute('type','application/javascript');
+    theme_js.textContent = theme.Javascript;
+
+    document.body.appendChild(frag);
   }
 
   /** 自动登录 */
@@ -421,19 +428,23 @@ var aya = new function () {
   
   maska = document.getElementById('maska');
   window.addEventListener('aya-online', ayaJump);
-  window.addEventListener('load', function (e) {
+  window.addEventListener('load',function (e) {
     /** 获取页面自动保存的用户名和密码 */
     preserveId.uname = document.form1.uname.value;
     preserveId.pass = document.form1.pass.value;
     
-    document.head.innerHTML+='<style id="maska" type=text/css>body{visibility: hidden !important;background: none !important;}</style>';
+    $(preserveId);
+    
     aya.setWTFline();     /**< 设置链接状态未知 */
     overwriteFunctions();
     brandNewBody();
     detectOnlineStatus();
     autoLogin();
-
+    
     /** 如果是跳转到登录页面的，就持续检测联网状态，连上网之后就跳转回去 */
     if (original_location) { setInterval(function () {detectOnlineStatus();}, 3100); }
+  });
+  window.addEventListener('DOMContentLoaded', function (e) {
+    document.head.innerHTML+='<style id="maska" type=text/css>body{visibility: hidden !important;background: none !important;}</style>';
   });
 };
