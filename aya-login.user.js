@@ -1,8 +1,10 @@
 // ==UserScript==
-// @name        super-bit-sr3k-login
+// @name        Aya login
 // @namespace   super-bit-sr3k-login
+// @author      'o1'*5
+// @description BIT Srun3k Login Enhancer.
 // @include     http://10.0.0.55/*
-// @version     2.3.7
+// @version     2.3.8
 // @grant       none
 // ==/UserScript==
 
@@ -41,13 +43,19 @@ var aya = new function () {
   /**
    * 跳转到登录页面之前的地址
    * 存在   : 之前的地址
-   * 不存在 : false
+   * 不存在 : ''
    * ://……?url=ORIGINAL_LOCATION
+   * ://……?ORIGINAL_LOCATION
    */
-  var original_location = (function (m = window.location.toString().match(/\?url=(https?:\/\/.*)$/)) {
-    if (m) return m[1].toString();
-    else return false;
+  var original_location = (function (){
+    var url = window.location.toString().match(/\?(?:url=)?(https?:\/\/.*)$/);
+    if (url) {
+      return url[1] || false;
+    } else {
+      return false;
+    }
   })();
+  $('org location' + original_location);
   
   /** 联网状态
    * 有三种取值，写入值的时候同时在 window 上触发对应事件
@@ -135,7 +143,7 @@ var aya = new function () {
    * @param actions 存放操作的数组，形如[ {"title":String,"action":Function},...]
    */
   this.confirm = (function (promot,actions) {
-    if (arguments.lentgh == 1) {
+    if (arguments.lentgh === 1) {
       return confirm(promot);
     }
     else {
@@ -218,7 +226,7 @@ var aya = new function () {
    */
   function detectOnlineStatus() {
     $("into detect");
-    if ( aya.isOnline == true) { return; }
+    if ( aya.isOnline === true) { return; }
     else { aya.setWTFline(); }
     var magi = document.createElement('script');
     magi.setAttribute('type', 'application/javascript');
@@ -233,7 +241,9 @@ var aya = new function () {
       clearInterval(checker);
       magi.remove();
       window.Hogan = false;
-      if (aya.isOnline !== true) aya.setOffline();
+      if (aya.isOnline !== true){
+        aya.setOffline();
+      }
     } ,3000);  //3s to determine network status
   }
 
@@ -246,10 +256,10 @@ var aya = new function () {
     var uname=document.form1.uname.value;
     var pass=document.form1.pass.value;
     var con="";
-    if(uname == "") {
+    if(uname === "") {
       con=postData("/cgi-bin/do_logout", "get", "");
     } else {
-      var drop=(document.form1.drop.checked==true)?1:0;
+      var drop=(document.form1.drop.checked===true)?1:0;
       var data="username="+window.trim(uname)+"&password="+pass+"&drop="+drop+"&type=1&n=1";
       con=postData("/cgi-bin/force_logout", "post", data);
     }
@@ -279,7 +289,7 @@ var aya = new function () {
         aya.alert(con);
         break;
     }
-  };
+  }
 
   /**
    * 覆盖原来的登录,注销
@@ -290,17 +300,17 @@ var aya = new function () {
     window.do_login = function  () {
       var uname=document.form1.uname.value;
       var pass=document.form1.pass.value;
-      if(uname == '请输入用户名' || uname == '用户名') {
+      if(uname === '请输入用户名' || uname === '用户名') {
         uname = '';
       }
-      if(pass == '请输入密码' || pass == '密码') {
+      if(pass === '请输入密码' || pass === '密码') {
         pass = '';
       }
-      if(uname=="") {
+      if(uname==="") {
         aya.alert("请填写用户名", function () { document.form1.uname.focus(); });
         return;
       }
-      if(pass=="") {
+      if(pass==="") {
         aya.alert("请填写密码", function () { document.form1.pass.focus(); });
         return;
       }
@@ -327,7 +337,7 @@ var aya = new function () {
         return;
       }
       var info = login_info(con);
-      if(info != '') {
+      if(info !== '') {
         aya.alert(info);
       } else {
         aya.alert("找不到认证服务器");
@@ -337,10 +347,10 @@ var aya = new function () {
     window.force_logout = function () {
       var uname=document.form1.uname.value;
       var pass=document.form1.pass.value;
-      if(uname == '请输入用户名') {
+      if(uname === '请输入用户名') {
         uname = '';
       }
-      if(pass == '请输入密码') {
+      if(pass === '请输入密码') {
       pass = '';
       }
       if(uname && pass) {
@@ -357,7 +367,7 @@ var aya = new function () {
           ]
         );
       }
-    }
+    };
     
     // Portal functions
     //srun portal login
@@ -366,14 +376,14 @@ var aya = new function () {
       enumerable:true,
       writable:false,
       value:function (frm) {
-        if(frm.uname.value=="")
+        if(frm.uname.value==="")
         {
           alert("请填写您的帐号");
           frm.uname.focus();
           return false;
         }
         
-        if(frm.pass.value=="")
+        if(frm.pass.value==="")
         {
           alert("请填写您的密码");
           frm.pass.focus();
@@ -415,6 +425,7 @@ var aya = new function () {
    * 支持 http(s) 协议的链接
    */
   function ayaJump () {
+    $(original_location);
     if (original_location) window.location = original_location;
   }
 
@@ -426,9 +437,12 @@ var aya = new function () {
   var bulletinHTML = ''; /**< 通知公告内容 */
   var maska;             /**< 隐藏整个页面 */  
   
-  maska = document.getElementById('maska');
   window.addEventListener('aya-online', ayaJump);
+  window.addEventListener('DOMContentLoaded', function (e) {
+    document.head.innerHTML+='<style id="maska" type=text/css>body{visibility: hidden !important;background: none !important;}</style>';
+  });
   window.addEventListener('load',function (e) {
+    maska = document.getElementById('maska');
     /** 获取页面自动保存的用户名和密码 */
     preserveId.uname = document.form1.uname.value;
     preserveId.pass = document.form1.pass.value;
@@ -444,7 +458,4 @@ var aya = new function () {
     /** 如果是跳转到登录页面的，就持续检测联网状态，连上网之后就跳转回去 */
     if (original_location) { setInterval(function () {detectOnlineStatus();}, 3100); }
   });
-  window.addEventListener('DOMContentLoaded', function (e) {
-    document.head.innerHTML+='<style id="maska" type=text/css>body{visibility: hidden !important;background: none !important;}</style>';
-  });
-};
+}();
