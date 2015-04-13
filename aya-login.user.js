@@ -2,7 +2,7 @@
 // @name        super-bit-sr3k-login
 // @namespace   super-bit-sr3k-login
 // @include     http://10.0.0.55/*
-// @version     2.3.5
+// @version     2.3.6
 // @grant       none
 // ==/UserScript==
 
@@ -42,9 +42,10 @@ var aya = new function () {
    * 跳转到登录页面之前的地址
    * 存在   : 之前的地址
    * 不存在 : false
+   * ://……?url=ORIGINAL_LOCATION
    */
-  var original_location = (function (m = window.location.toString().match(/\?https?:\/\/.*$/)) {
-    if (m) return m.toString().slice(1).toString();
+  var original_location = (function (m = window.location.toString().match(/\?url=(https?:\/\/.*)$/)) {
+    if (m) return m[1].toString();
     else return false;
   })();
   
