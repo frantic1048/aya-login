@@ -7,6 +7,11 @@ var fs = require('fs'),
 
 // Tasks
 
+// Clean
+gulp.task('clean', function(cb) {
+  del(['build/*'], cb);
+});
+
 // Build Aya
 
 gulp.task('build', function(cb) {
@@ -50,15 +55,9 @@ gulp.task('build', function(cb) {
   }
   
   buildAya();
-});
-
-// Clean
-gulp.task('clean', function(cb) {
-  del(['build/*'], cb);
+  cb();
 });
 
 
 // Default task
-gulp.task('default', ['clean'], function() {
-  gulp.start( 'build');
-});
+gulp.task('default', ['build'], function(cb) { cb(); });

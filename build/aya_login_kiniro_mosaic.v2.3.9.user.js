@@ -4,13 +4,14 @@
 // @author      'o1'*5
 // @description BIT Srun3k Login Enhancer.
 // @include     http://10.0.0.55/*
-// @version     2.3.8
+// @version     2.3.9
 // @grant       none
 // ==/UserScript==
 
 /**
  * 某bit的超srun3k校园网登录
  */
+window.onload = 0;
 var aya = new function () {
   console.log('あやや　始まるよ　!!');
 
@@ -171,6 +172,7 @@ var aya = new function () {
 
   /** 来吧，全新的登录界面_(:з」∠)_ */
   function brandNewBody () {
+    console.log('=>theming body');
     clearOut();
     fillBody();
   }
@@ -178,8 +180,10 @@ var aya = new function () {
   /** 清空整个页面 */
   function clearOut () {
     /** 清空页面 */
+    console.log('=>deleting body content');
     document.body.innerHTML = "";
     /** 删除原有的样式表 */
+    console.log('=>deleting body style');
     Array.prototype.filter.call(document.querySelectorAll('style,link[rel="stylesheet"],stylesheet,link[type="text/css"]'),function (el,idx,arr) {el.remove();});
   }
 
@@ -436,7 +440,7 @@ var aya = new function () {
   var maska;             /**< 隐藏整个页面 */  
   
   window.addEventListener('aya-online', ayaJump);
-  window.addEventListener('DOMContentLoaded', function (e) {
+  window.addEventListener('load', function (e) {
     document.head.innerHTML+='<style id="maska" type=text/css>body{visibility: hidden !important;background: none !important;}</style>';
   });
   window.addEventListener('load',function (e) {
@@ -445,10 +449,19 @@ var aya = new function () {
     preserveId.uname = document.form1.uname.value;
     preserveId.pass = document.form1.pass.value;
     
+    console.log('setting wtf line');
     aya.setWTFline();     /**< 设置链接状态未知 */
-    overwriteFunctions();
+    
+    console.log('new body');
     brandNewBody();
+    
+    console.log('overiting functions');
+    overwriteFunctions();
+    
+    console.log('detect online status');
     detectOnlineStatus();
+    
+    console.log('auto logging');
     autoLogin();
     
     /** 如果是跳转到登录页面的，就持续检测联网状态，连上网之后就跳转回去 */
