@@ -4,7 +4,7 @@
 // @author      'o1'*5
 // @description BIT Srun3k Login Enhancer.
 // @include     http://10.0.0.55/*
-// @version     2.3.9
+// @version     2.3.10
 // @grant       none
 // ==/UserScript==
 
@@ -455,11 +455,11 @@ var aya = new function () {
     console.log('new body');
     brandNewBody();
     
-    console.log('overiting functions');
-    overwriteFunctions();
-    
     console.log('detect online status');
     detectOnlineStatus();
+    
+    console.log('overiting functions');
+    overwriteFunctions();
     
     console.log('auto logging');
     autoLogin();

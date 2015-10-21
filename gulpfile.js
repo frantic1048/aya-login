@@ -45,7 +45,7 @@ gulp.task('build', function(cb) {
                      .replace(/(var\s*theme\s*=\s*\{(?:.|\n)*CSS\s*:\s*)\".*\"/,'$1' + themeFragment.CSS)
                      .replace(/(var\s*theme\s*=\s*\{(?:.|\n)*JS\s*:\s*)\".*\"/,'$1' + themeFragment.JS);
 
-        fs.writeFile('build/' + 'aya_login_' + themeName.replace(/\s/g,'_').toLowerCase() + '.v' + version + '.user.js',
+        fs.writeFile('build/' + 'aya_login_' + themeName.replace(/\s/g,'_').toLowerCase() + '.build' + '.user.js',
                     ayaya,
                     function () {console.log( 'Aya Login v' + version + ' - ' + themeName + ' Generated');});
       });
